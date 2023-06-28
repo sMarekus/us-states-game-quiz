@@ -22,6 +22,11 @@ while continueGame:
 
     # end program on exit
     if answer_state == "Exit":
+        # missed states to learn.csv
+        learn_to_states = [n for n in data.state if n not in correct_guesses]
+
+        table_learn_to_states = pandas.DataFrame(learn_to_states, columns=["states"])
+        table_learn_to_states.to_csv("learn.csv")
         break
 
     for state in data.state:
@@ -43,13 +48,3 @@ while continueGame:
     # end program if the user guessed all states
     if len(correct_guesses) == len(data.state):
         break
-
-# missed states to learn.csv
-learn_to_states = []
-
-for state in data.state:
-    if state not in correct_guesses:
-        learn_to_states.append(state)
-
-table_learn_to_states = pandas.DataFrame(learn_to_states, columns=["states"])
-table_learn_to_states.to_csv("learn.csv")
